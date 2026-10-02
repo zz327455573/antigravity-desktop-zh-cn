@@ -1,0 +1,47 @@
+{
+  "menu": {
+    "File": "文件",
+    "Edit": "编辑",
+    "View": "视图",
+    "Window": "窗口",
+    "Help": "帮助",
+    "New Window": "新建窗口",
+    "Create Project": "创建项目",
+    "Command Palette": "命令面板",
+    "Docs": "文档",
+    "Check for Updates": "检查更新",
+    "Toggle Developer Tools": "切换开发者工具",
+    "Undo": "撤销",
+    "Redo": "重做",
+    "Cut": "剪切",
+    "Copy": "复制",
+    "Paste": "粘贴",
+    "Select All": "全选",
+    "Minimize": "最小化",
+    "Maximize": "最大化",
+    "Close": "关闭",
+    "Zoom": "缩放",
+    "Reset Zoom": "重置缩放",
+    "Zoom In": "放大",
+    "Zoom Out": "缩小",
+    "Toggle Full Screen": "切换全屏",
+    "Split Terminal": "拆分终端",
+    "Split Conversation Horizontally": "水平拆分会话",
+    "Split Conversation Vertically": "垂直拆分会话",
+    "Find in conversation": "在会话中查找",
+    "Version": "版本",
+    "Connect to WSL": "连接到 WSL",
+    "Reopen Locally": "在本地重新打开"
+  },
+  "tray": {
+    "No agents running": "无运行中的智能体",
+    "Open Antigravity": "打开反重力智能编程",
+    "Quit": "退出",
+    "running_agents_template": "{count} 个智能体运行中"
+  },
+  "updater": {
+    "check_title": "检查更新",
+    "no_update_message": "暂无可用更新",
+    "confirm_button": "确定"
+  }
+}
