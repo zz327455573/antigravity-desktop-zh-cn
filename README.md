@@ -4,7 +4,7 @@
 
 **专为 Google Antigravity 桌面端量身定制的全量简体中文汉化与云电脑 ICE 优化补丁**
 
-[![GitHub release](https://img.shields.io/badge/release-v2.19.1-blue.svg)](https://github.com/zz327455573/antigravity-desktop-zh-cn/releases)
+[![GitHub release](https://img.shields.io/badge/release-v2.22.0-blue.svg)](https://github.com/zz327455573/antigravity-desktop-zh-cn/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](README.md)
 
