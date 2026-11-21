@@ -12,6 +12,7 @@
 import argparse
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -117,43 +118,34 @@ def main() -> int:
         utils_js = temp_dir / 'dist' / 'utils.js'
         if utils_js.is_file():
             content = utils_js.read_text(encoding='utf-8')
-            target_utils = """        titleBarStyle: 'hidden',
-        titleBarOverlay: isMacOS()
-            ? false
-            : {
-                color: backgroundColor,
-                symbolColor: foregroundColor,
-                height: 30,
-            },"""
+            pattern_utils = re.compile(
+                r"        titleBarStyle: 'hidden',\s+"
+                r"titleBarOverlay: isMacOS\(\)\s+\? false\s+: \{\s+"
+                r"color: backgroundColor,\s+"
+                r"symbolColor: foregroundColor,\s+"
+                r"height: [^,\n]+,\s+\},",
+                re.MULTILINE
+            )
             replacement_utils = """        titleBarStyle: isMacOS() ? 'hidden' : undefined,
         titleBarOverlay: false,
         frame: true,"""
-            if target_utils in content:
-                content = content.replace(target_utils, replacement_utils, 1)
+            if pattern_utils.search(content):
+                content = pattern_utils.sub(replacement_utils, content, count=1)
                 utils_js.write_text(content, encoding='utf-8')
                 print("  ✓ 已注入 utils.js (开启原生标题栏)")
 
         ipc_js = temp_dir / 'dist' / 'ipcHandlers.js'
         if ipc_js.is_file():
             content = ipc_js.read_text(encoding='utf-8')
-            target_ipc = """        if (win && process.platform === 'win32') {
-            win.setTitleBarOverlay({
-                color: options.color,
-                symbolColor: options.symbolColor,
-                height: 30,
-            });
-        }"""
-            replacement_ipc = """        if (win && process.platform === 'win32') {
-            try {
-                win.setTitleBarOverlay({
-                    color: options.color,
-                    symbolColor: options.symbolColor,
-                    height: 30,
-                });
-            } catch (e) {}
-        }"""
-            if target_ipc in content:
-                content = content.replace(target_ipc, replacement_ipc, 1)
+            pattern_ipc = re.compile(
+                r"(            )(win\.setTitleBarOverlay\(\{[^}]+\}\);)"
+            )
+            if "try {\n                win.setTitleBarOverlay(" not in content and pattern_ipc.search(content):
+                def _wrap_ipc(m):
+                    indent = m.group(1)
+                    body = m.group(2).replace("\n", "\n    ")
+                    return f"{indent}try {{\n{indent}    {body}\n{indent}}} catch (e) {{}}"
+                content = pattern_ipc.sub(_wrap_ipc, content, count=1)
                 ipc_js.write_text(content, encoding='utf-8')
                 print("  ✓ 已注入 ipcHandlers.js (标题栏异常保护)")
 
